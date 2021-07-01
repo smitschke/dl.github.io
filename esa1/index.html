@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8">
+    <title>Deep Learning - ESA1 - Susanne Dittrich</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/dl/esa1/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js"></script>
+    <script src="https://unpkg.com/ml5@latest/dist/ml5.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
+ 
+    <script src="./jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+    <script src="./jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+  </head>
+
+  <body>
+    <div id="loading" style="display: none;">
+      <div>Loading classifier</div>
+    </div>
+    
+    <div id="header">IMAGE CLASSIFIER</div>
+    <div id="app"> 
+      <div>
+        <div id="viewport"></div>
+        <h2>Beispielbilder</h2>
+        <div class="image_preview" id="image_preview_1"><img src="images/hund.jpg" /></div>
+        <div class="image_preview" id="image_preview_2"><img src="images/charly.jpg" /></div>
+        <div class="image_preview" id="image_preview_3"><img src="images/macaw1.jpg" /></div>
+        <div class="image_preview" id="image_preview_4"><img src="images/macaw2.jpg" /></div>
+        <div class="image_preview" id="image_preview_5"><img src="images/bird.jpg" /></div>
+      </div>
+      <div>
+        <h2>Upload</h2>
+        <div>Finde heraus, was auf deinen Bildern abgebildet ist</div>
+        <div>
+          <div id="drop_area">
+            <p>Drag and drop images or click here</p>
+          </div>
+          <input type="file" id="file_input" />
+          <div id="alert"><b>Achtung - </b>Folgende Datentypen sind erlaubt:<br />'jpeg', 'jpg', 'png', 'gif', 'bmp'</div>
+        </div>
+      </div>
+      <div>
+        <h2>Ergebnisse</h2>
+        <div id="tabs">
+          <ul>
+            <li><a href="#tabs-1">Auswertung</a></li>
+            <li><a href="#tabs-2">Diagramm</a></li>
+            <li><a href="#tabs-3">Anmerkung</a></li-->
+          </ul>
+          <div id="tabs-1">
+            <div class="no_data">Es wurden noch keine Daten geladen</div>
+            <div><table><thead><th>Klasse</th><th>Wahrscheinlichkeit</th></thead></table></div>
+          </div>
+          <div id="tabs-2">
+            <div class="no_data">Es wurde noch keine Daten geladen</div>
+            <div id="barchart-cont"></div>
+            <canvas id="myChart"></canvas>
+          </div>
+          <div id="tabs-3">
+            <div><h3>Anmerkung zu den Beispielbildern</h3>
+            <p>Je nachdem welche TensorflowJS-Version man einbindet, können unterschiedliche Ergebnisse auftreten, da scheinbar der Trainingsstatus des Models unterschiedlich ist.</p>
+            <p>So erhält man bei dem dunkelbraunen Hund in der aktuellen Version das Ergebnis, dass es sich zu 43% um einen Postsack handelt, während die Vorgängerversion zumindest noch zu 48% die Hundeschnauze erkannte.</p>
+            <p>Daraus ergibt sich auch die Abweichung bei der Erkennung des Rotkehlchens aus dem <a href="https://learn.ml5js.org/#/reference/image-classifier">ml5-Beispiel</a>. Auch hier ist die Erkennungsrate etwas schlechter, was zeigt, dass ein Model durch neue Zuordnungen / ein anderes Training schlechter werden kann.</p>
+            <p>Die ermittelten Ergebnisse müssen aber generell mit Vorsicht betrachtet werden, was die Fotos der beiden Aras zeigen. Nur einer von beiden wird erkannt.</p>
+            <p>Im Allgemeinen gilt jedoch: Je höher die Erkennungsrate, umso höher die Wahrscheinlichkeit, dass das Ergebnis mit der tatsächlichen Abbildung übereinstimmt.</p> 
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    
+    <div id="sources" style="display: none;"><h3>Verwendete Bibliotheken:</h3>
+      <div id="close">x</div>
+      <p>
+        <a href="https://learn.ml5js.org/#/">https://learn.ml5js.org/#/</a><br />
+        <a href="https://www.chartjs.org/docs/latest/">https://www.chartjs.org/docs/latest/</a><br />
+        <a href="https://jquery.com/">https://jquery.com/</a><br />
+        <a href="https://jqueryui.com/">https://jqueryui.com/</a>
+      </p>
+      <h3>Verwendete Bilder und Icons:</h3>
+      <p>
+        <a href="https://www.mera-petfood.com/files/_processed_/a/4/csm_iStock-521697453_a663c6b1bc.jpg.webpbi">https://www.mera-petfood.com/files/_processed_/a/4/csm_iStock-521697453_a663c6b1bc.jpg.webpbi</a><br />
+        <a href="https://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_macaws%20copy.jpg">https://animals.sandiegozoo.org/sites/default/files/2016-11/animals_hero_macaws%20copy.jpg</a><br />
+        <a href="https://img.pixers.pics/pho_wat(s3:700/FO/17/74/80/47/700_FO17748047_4b7bd0b9279a9256600d7797fae4a579.jpg,560,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,340,650,jpg)/aufkleber-blue-macaw.jpg.jpg">https://img.pixers.pics/pho_wat(s3:700/FO/17/74/80/47/700_FO17748047_4b7bd0b9279a9256600d7797fae4a579.jpg,560,700,cms:2018/10/5bd1b6b8d04b8_220x50-watermark.png,over,340,650,jpg)/aufkleber-blue-macaw.jpg.jpg</a><br />
+        <a href="https://www.flaticon.com/authors/good-ware">https://www.flaticon.com/authors/good-ware</a>
+      </p>
+    </div>
+  <footer>
+    <div>Susanne Dittrich, TH Brandenburg, 20082904</div>
+    <a href="#" id="sources_link">Quellen</a>
+  </footer>
+  <script  src="sketch.js"></script>
+  </body>
+</html>
