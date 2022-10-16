@@ -1,146 +1,60 @@
 <!DOCTYPE html>
-<html lang="de">
-  <head>
-    <meta charset="UTF-8">
-    <title>Deep Learning - ESA3 - Susanne Dittrich</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		
+		<link href="jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="gvt.css" media="screen" />
+		<script src="jquery-3.6.1.min.js"></script>
+		<!--script src="jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
+		<script src="jquery-ui-1.12.1.custom/jquery-ui.js"></script-->
+			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+			<script>
+				$( function() {
+				  $( "#menu" ).menu();
+				} );
+				</script>
+			<script src="esa1.js"></script>
+			<style>
+				.ui-menu { width: 150px; }
+			</style>
+	</head>
 
-    <link href="/dl/esa3/jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
-    
-
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script>
- 
-    <script src="./jquery-ui-1.12.1.custom/external/jquery/jquery.js"></script>
-    <script src="./jquery-ui-1.12.1.custom/jquery-ui.js"></script>
-
-    <script src="https://d3js.org/d3.v6.min.js"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  </head>
-
-  <body> 
-    <div id="wrapper">   
-    <div id="header">REGRESSION MIT FFNN</div>
-    <div id="app">
-      <div id="control_panel">
-        <form action="#">
- 
-        
-        <h2>Einstellungen</h2>
-        <fieldset>
-        <p>
-          <label for="activation">Aktivierungsfunktion:</label>
-          <select id="activation" name="activation">
-            <option selected="selected">relu</option>
-            <option>sigmoid</option>
-            <option>tanh</option>
-          </select>
-          <div class="hint"></div>
-        </p>
-        <p>
-          <label for="optimizer">Optimizer:</label>
-          <select id="optimizer" name="optimizer">
-            <option selected="selected">adam</option>
-            <option>sgd</option>
-            <!--option>momentum</option-->
-          </select>
-        </p>
-        <p>
-          <label for="samples">Anzahl Trainingsdaten:</label>
-          <input id="samples" name="samples" value="50">
-        </p>
-        <p>
-          <label for="neuron_spinner">Anzahl Neuronen:</label>
-          <input id="neurons" name="neurons" value="50">
-          <div class="hint">Zwischen 1 und 50</div>
-        </p>
-        <p>
-          <label for="layer">Hidden Layer:</label>
-          <input id="layer" name="layer" value="1">
-          <div class="hint">Zwischen 0 und 100</div>
-        </p>
-        <p>
-          <label for="rate">Lernrate:</label>
-          <input id="rate" name="rate" value="0.01">
-          <div class="hint">Zwischen 0,001 und 1</div>
-        </p>
-        <p>
-          <label for="epochs">Epochen:</label>
-          <input id="epochs" name="epochs" value="50">
-          <div class="hint">Zwischen 1 und 500</div>
-        </p>
-        <h3>Voreinstellungen</h3>
-        <hr />
-        <button id="good" class="ui-button ui-widget ui-corner-all">Good</button>
-        <button id="overfitted" class="ui-button ui-widget ui-corner-all">Overfitted</button>
-        <button id="underfitted" class="ui-button ui-widget ui-corner-all">Underfitted</button>
-        </fieldset>
-        </form>
-        <button id="train" class="ui-button ui-widget ui-corner-all">Train and predict</button>
-      </div>
-      <div>
-        <h2>Ergebnisse</h2>
-        <div id="tabs">
-          <ul>
-            <li><a href="#tabs-1">Aufgabenstellung</a></li>
-            <li><a href="#tabs-2">Umsetzung</a></li>
-            <li><a href="#tabs-3">Auswertung</a></li>
-          </ul>
-          <div id="tabs-1">
-            <p>Nutzen Sie ein feed-forward neural Network (FFNN) zur Regression der reellwertigen Funktion:  y(x) = (x+0.8)*(x-0.2)*(x-0.3)*(x-0.6) im Wertebereich [-1,+1].</p>
-            <p>Zum Erzeugen der Trainingsdaten samplen Sie N (= 5, 10, 20, 50, 100) zufällige [gleichverteilte] x Werte aus dem Intervall [-1,+1] und berechnen dazu y(x).</p>
-            <p>Dann verrauschen Sie die Trainingsdaten künstlich. Addieren Sie dazu normal-verteiles Rauschen (Gaussian Noise) mit einer Varianz von entweder 0.1 oder 0.3.</p>
-          </div>
-          <div id="tabs-2">
-            <p><b>Verwendete Vorlage:</b> <a href="https://codelabs.developers.google.com/codelabs/tfjs-training-regression/#0">TensorFlow.js — Making Predictions from 2D Data</a> </p>
-            <p><b>Anpassungen:</b></p>
-            <p><b>Schritt 1:</b> Es wurden zufällige, gleichverteilte x-Werte zwischen -1 und +1 generiert. Die geforderte Anzahl der Trainingsdaten n=(5, 10, 20, 50, 100) wurde bewusst nicht umgesetzt, sondern kann vom User frei im Bereich zwischen 5 und 1000 eingestellt werden.<br />
-            Der Grund für die geänderte Umsetzung ist, dass sich für max. 100 Trainingsdaten noch keine gute Vorhersagen treffen lassen und dass das Phänomen des Over- bzw. Underfittings nicht gut getestet werden kann.
-            </p>
-            <p><b>Schritt 2:</b> Die zugehörigen Funktionswerte zu den vorher generierten x-Werten wurden berechnet und zusammen mit den x-Werten als Array zurückgegeben.</p>
-            <p><b>Schritt 3:</b> Die generierten Trainingsdaten wurden als Linechart im Visor-Tab des tfjs-visor Container angezeigt. Der Chart-Tab wurde aus Gründen der Übersichtlichkeit nicht gewählt.<br />  
-            <p><b>Schritt 4:</b> Neben der Anzahl der Trainingsdaten wurden die Parameter rechts unter "Einstellungen" dynamisch umgesetzt und können jetzt vom User angepasst werden.</p>
-            <p><b>Schritt 5:</b> Der Funktionsaufruf für die "run"-Funktion wurde geändert. Die Funktion wird nun nicht mehr bei jedem Seitenaufruf automatisch ausgeführt, sondern muss explizit über den Button "Train and predict" aufgerufen werden.</p>
-            <p><b>Schritt 6:</b> Es wurden verschiedene Einstellungen getestet, um möglichst gute Vorhersagen treffen zu können und Over- bzw. Underfitting zu vermeiden bzw. zu provozieren (siehe Auswertung). Die ermittelten Werte können über die Buttons "Good", "Overfitted" und "Underfitted" geladen werden.</p>
-          </div>
-          <div id="tabs-3">
-            Gute Vorhersagen haben sich für folgende Einstellungen erzielen lassen:<br /><br />
-            <b>Aktivierungsfunktion:</b> relu<br/>
-            <b>Optimizer:</b> adam<br />
-            <b>Anzahl Trainingsdaten:</b> 300<br />
-            <b>Anzahl Neuronen:</b> 50<br />
-            <b>Hidden Layer:</b> 0.01<br />
-            <b>Epochen:</b> 50<br />
-
-            <p><b>Anmerkungen:</b></p>
-            <p><b>Batch size:</b> Größe der Einheiten in der die Trainingsdaten zusammengefasst werden (32).</p>
-            <p><b>Objektivfunktion/Loss:</b> MSE (vorgegeben)</p>
-            <p><b>Lernrate:</b> Eine zu hohe Lernrate bewirkt, dass ggf. nie ein Minimum beim Gradientenabstieg erreicht werden kann. Mit einer zu geringen Lernrate wird möglicherweise nur ein lokales Minimum erreicht und nie das globale. Außerdem wird das Netzwerk bei geringen Lernraten extrem langsam.</p>
-            <p><b>Underfitting:</b> Das Modell wurde zu wenig an die Daten angepasst und kann keine vernünftigen Vorhersagen treffen. </p>
-            <p><b>Overfitting:</b> Das Modell wurde zu stark an die Daten angepasst. Das Modell ist sehr langsam und eine weitere Anpassung an die Daten würde keine signifikant besseren Werte liefern.</p>
-            <p><b>Bias und Varianz:</b> Bei Overfitting existieren viele Datenpunkte anhand derer das Modell gelernt wird, es besteht demnach nur eine geringe Abhängigkeit von den Trainingsdaten, da die Kurve bei jedem Neulernen annähernd gleich aussieht. Wir haben also eine geringe Varianz.<br />
-            Weiterhin approximiert es die Daten sehr genau, was bedeutet dass wir einen geringen Bias haben.<br />
-            Beim Underfitting verhält sich Varianz und Bias genau entgegengesetzt.</p>
-          </div>
-      </div>
-    </div>
-    <div id="tfjs-visor-container">
-
-    </div>
-    
-    <div id="sources" style="display: none;"><h3>Verwendete Bibliotheken:</h3>
-      <div id="close">x</div>
-      <p>
-        <a href="https://jquery.com/">https://jquery.com/</a><br />
-        <a href="https://jqueryui.com/">https://jqueryui.com/</a>
-      </p>
-    </div>
-  <div id="footer">
-    <div>Susanne Dittrich, TH Brandenburg, 20082904</div>
-    <a href="#" id="sources_link">Quellen</a>
-  </div>
-  </div>
-  <script  src="esa3.js"></script>
-  </body>
+	<body onload="loadImage(0); animate();";>
+		<div id="header">Graphical Visualisation Technologies
+			<!--ul id="menu">
+				<li><div><img src="img/menu.png"></div>
+				<ul>
+					<li><div><a href="">ESA 1</a></div></li>
+					<li><div><a href="">ESA 2</a></div></li>
+					<li><div><a href="">ESA 3</a></div></li>
+				</ul></li>
+			</ul-->
+		</div>
+		<h2>ESA 1: Interaktiv animierte Scheibe</h2>
+		<div id="content">	
+			<img id="disc">
+			<div id="manual"><b>Tastaturbelegung:</b><br/><br />
+			<span>r: Drehe Scheibe nach rechts</span></br>
+			<span>l: Drehe Scheibe nach links</span></br>
+			<span>a: Animiere Figuren<br />(erneutes Drücken stoppt die Animation)</span><br /><br />
+			
+		</div>
+		<img id="robot">	
+				<div id="sources" style="display: none;"><h3>Verwendete Bilder:</h3>
+					<div id="close">x</div>
+					<p><a href="https://www.flaticon.com/de/kostenlose-icons/roboter" title="roboter Icons" target="_blank">Roboter Icons erstellt von Freepik - Flaticon</a></p>
+					<h3>Verwendete Bibliotheken:</h3>
+					<p>
+					  <a href="https://jquery.com/" target="_blank">https://jquery.com/</a><br>
+					  <a href="https://jqueryui.com/" target="_blank">https://jqueryui.com/</a>
+					</p>
+				</div>
+		</div>
+		<div id="footer">
+			<div>Susanne Dittrich, TH Brandenburg, 20082904</div>
+			<a id="source_link" href="#">Quellen</a>
+		</div>
+	</body>
 </html>

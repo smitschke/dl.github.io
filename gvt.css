@@ -1,0 +1,234 @@
+html, body { 
+    height: 100%; 
+}
+
+html {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0;
+    margin: 0;
+    background-color: #f2f2f2;
+    height: 100%;
+}
+
+h2 {
+    font-weight: lighter;
+    padding-left: 20px;
+    font-size: 20px;
+    float: none;
+}
+
+#header {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 25px;
+    padding: 15px;
+    color: #E3EAFC;
+    background-color: #343B4A;
+}
+
+#header img {
+    width: 30px;
+}
+
+#menu {
+    float: right;
+}
+
+.ui-menu {
+    width: auto !important;
+}
+
+.ui-widget.ui-widget-content {
+    border: none !important;
+  }
+
+
+  .ui-widget-content:first-child {
+    background: none !important;
+  }
+
+  .ui-icon, .ui-widget-content .ui-icon {
+    background-image: none !important;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active {
+    border: none !important;
+    background: none !important
+}
+
+#footer {
+    background-color: #343B4A;
+    color: #E3EAFC;
+    font-size: 12px;
+    clear:both;
+    position: absolute;
+    bottom: 0;
+    width: 100%; 
+    padding: 0 !important;
+    width: 100% !important;   
+}
+
+#footer > div {
+    margin: 10px;
+    float: left;
+}
+
+#disc {
+    margin: 20px 40px;
+    width: 300px;
+}
+
+#robot {
+    background-image: url("img/robo-sprite.png");
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    border-style: none;
+    background-position: right 0px bottom 0px;
+    clip: rect(1px 300px 300px 1px);
+    margin-top: 20px;
+}
+
+#manual {
+    margin-top: 0px;
+    width: 290px !important;
+}
+
+img {
+    float: left;
+}
+
+a {
+    color: #98ADD9; 
+}
+
+#footer > a {
+    margin: 10px;
+    float: right;
+}
+
+#content {
+    width: 100%; 
+}
+
+#content > div {
+    padding: 20px;
+    float: left;
+    width: 400px;
+}
+   
+#tabs {
+    width: 800px !important;
+}
+
+.ui-tabs .ui-tabs-nav .ui-tabs-anchor {
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.ui-tabs .ui-tabs-panel {
+    padding: 20px;
+    font-size: 12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#sources {
+    width: 98% !important;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    opacity: 0.9;
+    background-color: #000;
+    z-index: 99;
+    text-align: center;  
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#sources > h3 {
+    color: #98ADD9;
+    margin-top: 30px;
+    margin-bottom: 10px 
+}
+
+#close {
+    color: #98ADD9; 
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#control_panel > p {
+    margin-bottom: 5px;
+}
+
+.hint {
+    font-size: 12px;
+}
+
+h3 {
+    color:#343B4A; 
+    font-size: 16px;
+}
+
+hr {
+    background-color: #98ADD9; 
+    height: 1px;
+    border: 0 none;
+}
+
+.ui-spinner-input {
+    padding: 0;
+}
+
+#wrapper {
+    position: relative;
+    min-height: 975px;
+    height: auto !important;
+}
+
+.ui-selectmenu-button.ui-button {
+    font-weight: normal;
+    width: 150px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.ui-menu .ui-menu-item-wrapper {
+    font-size: 16px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.ui-widget input {
+    font-size: 16px;
+    padding: 5px;
+}
+
+.ui-button, .ui-button:hover, .ui-button:focus {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+fieldset {
+    margin-bottom: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    border-color: #98ADD9;
+}
+
+fieldset > p {
+    margin-bottom: 5px;
+}
