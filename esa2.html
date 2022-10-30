@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		
+		<link href="jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="gvt.css" media="screen" />
+		<script src="jquery-3.6.1.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+			<script>
+				$( function() {
+				  $( "#menu" ).menu();
+				} );
+				</script>
+			<style>
+				.ui-menu { width: 150px; }
+			</style>
+	</head>
+
+	<body>
+		<div id="header">Graphical Visualisation Technologies
+		</div>
+		<h2>ESA 2: 2D Geometrie aus Linien</h2>
+		<div id="content">	
+			<canvas id="canvas" width="400" height="400"></canvas>
+            <script src="esa2.js"></script>
+            <div id="sources" style="display: none;"><h3>Verwendete Bilder:</h3>
+                <div id="close">x</div>
+                <h3>Verwendete Bibliotheken:</h3>
+                <p>
+                  <a href="https://jquery.com/" target="_blank">https://jquery.com/</a><br>
+                  <a href="https://jqueryui.com/" target="_blank">https://jqueryui.com/</a>
+                </p>
+            </div>
+		</div>
+		<div id="footer">
+			<div>Susanne Dittrich, TH Brandenburg, 20082904</div>
+			<a id="source_link" href="#">Quellen</a>
+		</div>
+	</body>
+</html>

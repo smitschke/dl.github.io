@@ -82,6 +82,10 @@ h2 {
     width: 300px;
 }
 
+canvas {
+    margin: 0 20px;
+}
+
 #robot {
     background-image: url("img/robo-sprite.png");
     position: absolute;
