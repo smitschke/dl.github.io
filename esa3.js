@@ -3,7 +3,6 @@ var canvas = document.getElementById('canvas');
 var gl = canvas.getContext('experimental-webgl');
 
 // Pipeline setup.
-//gl.clearColor(0, 0, 0, 1);
 gl.clearColor(0.89, 0.92, 0.99, 1);
 // Backface culling.
 gl.frontFace(gl.CCW);
@@ -40,11 +39,6 @@ var colors = new Float32Array([
     0.35,0.12,0.09,1.0, 0.35,0.12,0.09,1.0, 0.35,0.12,0.09,1.0, //Pfote unten
     0.44,0.36,0.37,1.0, 1,1,1,1.0, 0.44,0.36,0.37,1.0, //Bein
     0.65,0.58,0.56,1.0, 0.65,0.58,0.56,1.0, 0.65,0.58,0.56,1.0, //Schwanz
-
-    //0.5,0.8,0.0,1.0, 0.5,0.8,0.0,1.0, 0.5,0.8,0.0,1.0,
-    //0,0.004,0.0,1.0, 0.5,0.8,0.0,1.0, 0.5,0.8,0.0,1.0,
-    //0.5,0.8,0.0,1.0, 0.5,0.8,0.0,1.0, 0.5,0.8,0.0,1.0,
-    //0,0.0,0.0,1.0, 0.5,0.8,0.0,1.0, 0.5,0.8,0.0,1.0 
 ]);
 
 // Index data.
@@ -78,24 +72,27 @@ gl.bufferData(gl.ARRAY_BUFFER, indices, gl.STATIC_DRAW);
 indexBuffer.numerOfEmements = indices.length;
 
 // Compile vertex shader.
-var vsSource = ''+
-    'attribute vec3 pos;'+
-    'attribute vec4 col;'+
-    'varying vec4 color;'+
-    'void main(){'+
-    'color = col;'+
-    'gl_Position = vec4(pos*0.3, 1);'+
-    '}';
+var vsSource = `
+    attribute vec3 pos;
+    attribute vec4 col;
+    varying vec4 color;
+    
+    void main(){
+        color = col;
+        gl_Position = vec4(pos*0.3, 1);
+    }`;
 var vs = gl.createShader(gl.VERTEX_SHADER);
 gl.shaderSource(vs, vsSource);
 gl.compileShader(vs);
 
 // Compile fragment shader.
-fsSouce = 'precision mediump float;'+
-    'varying vec4 color;'+
-    'void main() {'+
-    'gl_FragColor = color;'+
-    '}';
+fsSouce = `
+    precision mediump float;
+    varying vec4 color;
+    
+    void main() {
+        gl_FragColor = color;
+    }`;
 var fs = gl.createShader(gl.FRAGMENT_SHADER);
 gl.shaderSource(fs, fsSouce);
 gl.compileShader(fs);
@@ -116,11 +113,6 @@ gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
 gl.vertexAttribPointer(colAttrib, 4, gl.FLOAT, false, 0, 0);
 gl.enableVertexAttribArray(colAttrib);
 
-/*var indexAttrib = gl.getAttribLocation(prog, 'index');
-gl.enableVertexAttribArray(indexAttrib);
-gl.bindBuffer(gl.ARRAY_BUFFER, indexBuffer);
-gl.vertexAttribPointer(indexAttrib, 3, gl.FLOAT, false, 0, 0);*/
-
 gl.clear(gl.COLOR_BUFFER_BIT);
 
 gl.useProgram(prog);
@@ -129,7 +121,6 @@ gl.drawArrays(gl.TRIANGLES, 0, indexBuffer.numerOfEmements);
 //Quellen-Anzeige
 $(document).ready(function() {
 $("#source_link").on("click", function(event) {
-    console.log("test");
     $('#sources').show();
   });
   
