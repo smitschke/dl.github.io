@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="nila.css" media="screen" />
+    </head>
+
+	<body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="nila.html">
+                    <img src="img/sql-injection.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    <span>NILA |</span>
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="nila.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://git.mylab.th-luebeck.de/tobias.koehn/nosqlinjection">
+                            Downloads
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row justify-content-lg-center">
+                <div class="col-3">
+                    <h5>Soviel Wissen muss sein!</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><div><a href="compareDB.html">SQL- und NoSQL-Datenbanken</a></div></li>
+                        <li class="list-group-item"><div><a href="attackDescription.html">NoSQL-Injections</a></div></li>
+                        <li class="list-group-item"><div><a href="securityMeasures.html">Sicherheitsmaßnahmen</a></div></li>
+                    </ul>
+                    <h5>It's your turn!</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><div><a href="setup.html">Playground aufsetzen</a></div></li>
+                        <li class="list-group-item"><div><a href="securityScanner.html">Sicherheitsscanner wählen</a></div></li>
+                        <li class="list-group-item"><div><a href="transactAttack.html">Angriff durchführen</a></div></li>
+                        <li class="list-group-item"><div><a href="preventAttack.html">Angriff verhindern</a></div></li>
+                        <li class="list-group-item"><div><a href="linksAndTools.html">Hilfreiche Links und Tools</a></div></li>
+                    </ul>
+                    <h5>Alles klar?</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><div><a href="knowledgeCheck.html">Wissenscheck</a></div></li>
+                    </ul>
+                </div>
+
+                <div id="mainContent" class="col-9">
+                    <h2>Willkommen bei NILA<br />der <b>N</b>oSQL-<b>I</b>njection <b>L</b>earning <b>A</b>pp</h2>
+                    <div class="container">
+                        <div class="row">
+                        <div class="col-12" id="welcome">
+                        <p>
+                            Hallo und schön, dass du dich für das Thema Datenbanksicherheit und NoSQL-Injections interessierst!
+                        </p>
+                        <p>
+                            Die Sicherheit von Datenbanken ist extrem wichtig, um alle möglichen Arten von Informationen zu sichern. Sie werden von sehr großen Unternehmen wie Amazon und Twitter verwendet, um die 
+                            Daten ihrer Benutzer zu speichern. Wenn die Datenbanken nicht genügend gegen Angriffe geschützt werden, können private Informationen wie Zahlungsinformationen oder Adressen leicht an die 
+                            falschen Hände geraten.
+                        </p>
+                        <p>
+                            Allerdings müssen nicht nur große Datenbanken mit Millionen von Nutzern sich über diese potenziellen Angriffen Gedanken machen. Jede Datenbank, die Daten enthält, die nicht öffentlich 
+                            gemacht werden sollen und nicht von jedem geändert werden dürfen, braucht Sicherheitsvorkehrungen.
+                        <p>Auf dieser Seite lernst du nun alles was du über NoSQL-Injections wissen musst.<br />Du findest also Antworten auf Fragen wie:</p>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="col-5">
+                            <img id="logo" src="img/sql-injection.png" alt="Logo">
+                        </div>
+                        <div class="col-7 align-self-center">
+                            <ul>
+                                <li>
+                                    Was sind überhaupt NoSQL-Injections?
+                                </li>
+                                <li>
+                                    Was ist eigentlich der Unterschied zwichen NoSQL- und SQL-Datenbanken?
+                                </li>
+                                <li>
+                                    Wie können NoSQL-Injections durchgeführt werden?<br />
+                                                                    </li>
+                                <li>Wie können Systeme bzüglich dieser Angriffsart sicherer gestaltet werden?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p>
+                                Um diese Fragen zu beantworten, werden dir im Theorieteil zunächst alle notwendigen Grundlagen zu NoSQL-Injections vermittelt.<br />
+                                Anschließend folgt ein Praxisteil, mit einer 1-zu-1 Schritt-Anleitung, wie Angriffe innerhalb einer php-Umgebung durchführt, aber auch verhindert werden können (selbstverständlich nur zu Lernzwecken ;))<br />
+                                Zu guter Letzt folgt noch ein kleiner Wissenscheck, bei dem du überpüfen kannst, ob du das Gelernte auch wirklich verinnerlicht hast.      
+                            </p>
+                            <p>
+                                Und nun wünschen wir viel Spaß mit NILA! :)
+                            </p>                      
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>     
+        
+        <div id="footer">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#authors">Autoren</a>
+		</div>
+        
+        <div class="modal fade" id="authors" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Autoren</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        Dominik Bottin<br />
+                        Robin Hegenberg<br />
+                        Susanne Dittrich<br />
+                        Tobias Köhn
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>

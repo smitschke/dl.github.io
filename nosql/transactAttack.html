@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" type="text/css" href="nila.css" media="screen" />
+    </head>
+	<body>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="nila.html">
+                    <img src="img/sql-injection.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    <span>NILA |</span>
+                </a>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="nila.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://git.mylab.th-luebeck.de/tobias.koehn/nosqlinjection">
+                            Downloads
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <div class="row justify-content-lg-center">
+                <div class="col-3">
+                    <h5>Soviel Wissen muss sein!</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><div><a href="compareDB.html">SQL- und NoSQL-Datenbanken</a></div></li>
+                        <li class="list-group-item"><div><a href="attackDescription.html">NoSQL-Injections</a></div></li>
+                        <li class="list-group-item"><div><a href="securityMeasures.html">Sicherheitsmaßnahmen</a></div></li>
+                    </ul>
+                    <h5>It's your turn!</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><div><a href="setup.html">Playground aufsetzen</a></div></li>
+                        <li class="list-group-item"><div><a href="securityScanner.html">Sicherheitsscanner wählen</a></div></li>
+                        <li class="list-group-item"><div><a id="active" href="transactAttack.html">Angriff durchführen</a></div></li>
+                        <li class="list-group-item"><div><a href="preventAttack.html">Angriff verhindern</a></div></li>
+                        <li class="list-group-item"><div><a href="linksAndTools.html">Hilfreiche Links und Tools</a></div></li>
+                    </ul>
+                    <h5>Alles klar?</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><div><a href="knowledgeCheck.html">Wissenscheck</a></div></li>
+                    </ul>
+                </div>
+                <div id="mainContent" class="col-9">
+                        <h2>Angriff durchführen</h2>
+                        <div>
+                            <p>Wurde nun der Playground erfolgreich aufgesetzt und Burp Suite installiert, können nun die ersten Angriffe auf die Website durchgeführt werden.</p>
+                            <p>Dazu muss zunächst der Apache-Server über das Xampp-Control-Panel gestartet werden. Die Website ist anschließend unter 
+                            <a href="http://localhost/nila/login.php">http://localhost/nila/login.php</a> erreichbar und sollte folgendermaßen aussehen:</p>
+                            <img src="img/Screenshot_Loginpage.png" alt="Loginpage" class="d-inline-block align-text-top">
+                            <p><b>Hinweis:</b> Erfolgreich eingeloggt werden kann sich mit den Daten<br />
+                            Username: admin<br />
+                            Password: 1234
+                            </p>
+                            <p>Im Normalfall weiß ein Angreifer diese Daten jedoch nicht, kann sich aber trotzdem leicht als Admin ausgeben uns sich unter diesem Account einloggen.</p>
+                            <p>Dazu muss zunächst Burp Suite gestartet und ein extra Browserfenster unter "Proxy > Open browser" geöffnet werden und "Intercept is on" aktiviert werden.</p>
+                            <img src="img/Screenshot_BurpSuite1.png" alt="Open Browser in Burp Suite" class="d-inline-block align-text-top">    
+                            <p>Anschließend muss die Website <a href="http://localhost/nila/login.php">http://localhost/nila/login.php</a> in diesem Browserfenster geöffnet werden.<br />
+                            Die Seite wird jedoch nicht sofort angezeigt. Dazu muss zuerst in Burp Suite einmal auf "Forward" geklickt werden.</p>
+                            <p>Gehen wir nun davon aus, dass ein potentieller Angreifer zwar weiß, dass es einen Admin-Account gibt, jedoch das entsprechende Passwort dazu nicht kennt, muss er nun zunächst eine 
+                            falsche Dateneingabe durchführen. Beispielsweise:<br />
+                            Username: admin<br />
+                            Password: admin
+                            </p>
+                            <p>Angezeigt wird nun in Burp Suite folgendes:</p>
+                            <img src="img/Screenshot_BurpSuite2.png" alt="Anzeigen des Requests" class="d-inline-block align-text-top">
+                            <p>Ändert er nun die Zeile</p>
+                            <p class="code">username=admin&password=admin&login=LOGIN</p>
+                            <p>in</p>
+                            <p class="code">username=admin&password[$ne]=admin&login=LOGIN</p> 
+                            <p>und klickt dann zweimal auf "Forward", wird der Angreifer erfolgreich als Admin erkannt und die Logout.php aufgerufen, also die Seite, die eigentlich nur angezeigt werden sollte, 
+                            nachdem die korrekten Daten eingegeben wurden. <br />
+                            Das das Funktioniert, liegt in diesem Fall an der Prüfung auf Ungleichheit (<b>n</b>ot <b>e</b>qual).</p>
+                            <p>Dieser Angriff war nur ein Beispiel, wie Angriffe durchgeführt werden können. Tatsächlich können auf diese Art und Weise verschiedenste Attacken durchgeführt werden, also nicht nur das 
+                            Einloggen unter einem anderen Account sondern beispielsweise auch die Manipulation von Daten. So können über den "Repeater" in Burp Suite erneut Anfragen mit falschen Daten gesendet und gespeichert werden.<br />
+                            Ein Angriff dieser Art wurde jedoch in dieser Anwendung nicht implementiert.</p>
+                        </div>
+                </div>
+            </div>
+        </div>     
+        
+        <div id="footer">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#authors">Autoren</a>
+		</div>
+
+        <div class="modal fade" id="authors" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Autoren</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        Dominik Bottin<br />
+                        Robin Hegenberg<br />
+                        Susanne Dittrich<br />
+                        Tobias Köhn
+                    </div>
+                </div>
+            </div>
+        </div>
+	</body>
+</html>
