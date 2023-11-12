@@ -17,8 +17,8 @@ body {
 
 h2 {
     font-weight: lighter;
-    padding-left: 20px;
     font-size: 20px;
+    padding-left: 20px;
     float: none;
 }
 
@@ -28,6 +28,20 @@ h2 {
     padding: 15px;
     color: #E3EAFC;
     background-color: #343B4A;
+    border-bottom: 2px solid #66DEFF
+}
+
+#nav {
+    font-family: 'Courier New', Courier, monospace;
+    padding: 10px 15px;
+    color: #E3EAFC;
+    background-color: #6b707e;
+    border-bottom: 2px solid #66DEFF
+}
+
+#nav a {
+    color: #66DEFF !important;
+    text-decoration: none;
 }
 
 #header img {
@@ -107,7 +121,8 @@ img {
 }
 
 a {
-    color: #98ADD9; 
+    color: #4EB1FC;
+    text-decoration: none;
 }
 
 #footer > a {
@@ -235,4 +250,30 @@ fieldset {
 
 fieldset > p {
     margin-bottom: 5px;
+}
+
+p {
+    margin: 20px 0 5px;
+}
+
+.esa4 > p {
+    margin: 0 20px;
+}
+
+.esa4 > div {
+    width: 500px !important;
+    padding: 20px 0 20px 20px !important;
+}
+
+.esa4 > div > canvas {
+    margin: 10px 0;
+}
+
+.esa4 input {
+    width: 30px;
+    margin-bottom: 5px;
+}
+
+.ui-widget.ui-widget-content {
+    border: 1px solid #98ADD9 !important;
 }

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		
+		<link href="jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="gvt.css" media="screen" />
+		<script src="jquery-3.6.1.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+			<script src="esa4.js" defer></script>
+			<script src="esa4_fish.js" defer></script>
+			<script src="esa4_shell.js" defer></script>
+			<script src="esa4_waterlily.js" defer></script>
+			<script>
+				$( function() {
+				  $( "#menu" ).menu();
+				} );
+				</script>
+			<style>
+				.ui-menu { width: 150px; }
+			</style>
+	</head>
+
+	<body>
+		<div id="header">Graphical Visualisation Technologies
+		</div>
+		<div id="nav">
+			<a href="esa1.html">ESA1</a> 
+			<a href="esa2.html">ESA2</a>
+			<a href="esa3.html">ESA3</a>
+			ESA4
+		</div>
+		<h2>ESA 4: Parametrisierte Flächen - oder "Ein Tag am Wasser"</h2>	
+		
+		<div id="content" class="esa4">	
+			<p>
+			<label for="line_checkbox">Linien anzeigen</label>
+			<input type="checkbox" name="line_checkbox" id="line_checkbox" checked="checked">
+			</p>
+			<div>
+				<strong><a href="http://www.3d-meier.de/tut3/Seite47.html">Fisch</a></strong>
+				<canvas id="fish" width="500" height="300"></canvas>
+			</div>
+			<div>
+				<strong><a href="http://www.3d-meier.de/tut3/Seite18.html">Muschel</a></strong>
+				<canvas id="shell" width="500" height="300"></canvas>
+
+				<p>Breite a</p>
+				<input type="text" id="a_shell" />
+				<div id="a_shell_slider"></div>
+
+				<p>Höhe b</p>
+				<input type="text" id="b_shell" />
+				<div id="b_shell_slider"></div>
+
+				<p>Innenradius c</p>
+				<input type="text" id="c_shell" />
+				<div id="c_shell_slider"></div>
+
+				<p>Windungen n</p>
+				<input type="text" id="w_shell" />
+				<div id="w_shell_slider"></div>
+			</div>
+			<div>
+				<strong>Seerose</strong>
+				<canvas id="waterlily" width="500" height="300"></canvas>
+				<p>Verwendete Formeln:</p>
+				<p> du = -2 * Math.PI / n<br />
+					dv = -2 *  Math.PI / m
+				</p>
+				<p>
+					y = -( 2 * v / Math.PI - Math.cos(v)) * 0.2 - 0.6<br />
+            		x = -(1.5 * Math.sin(u+5) * Math.sin(v)) * 0.25<br />
+					z = 0.6
+				</p>
+			</div>
+            <div id="sources" style="display: none;"><h3>Verwendete Bilder:</h3>
+                <div id="close">x</div>
+                <h3>Verwendete Bibliotheken:</h3>
+                <p>
+                  <a href="https://jquery.com/" target="_blank">https://jquery.com/</a><br>
+                  <a href="https://jqueryui.com/" target="_blank">https://jqueryui.com/</a>
+                </p>
+            </div>
+		</div>
+		<!--<div id="footer">
+			<div>Susanne Dittrich, TH Brandenburg</div>
+			<a id="source_link" href="#">Quellen</a>
+		</div>-->
+	</body>
+</html>
