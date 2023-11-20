@@ -256,7 +256,7 @@ p {
     margin: 20px 0 5px;
 }
 
-.esa4 > p {
+.esa4 > p, .esa5 > p {
     margin: 0 20px;
 }
 
@@ -265,11 +265,16 @@ p {
     padding: 20px 0 20px 20px !important;
 }
 
-.esa4 > div > canvas {
+.esa5 > div {
+    width: 500px !important;
+    padding: 0 0 20px 20px !important;
+}
+
+.esa4 > div > canvas, .esa5 > div > canvas {
     margin: 10px 0;
 }
 
-.esa4 input {
+input {
     width: 30px;
     margin-bottom: 5px;
 }
