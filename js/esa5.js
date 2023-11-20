@@ -103,7 +103,7 @@ var app = ( function() {
 		gl.cullFace(gl.BACK);
 
 		// Depth(Z)-Buffer.
-		//gl.enable(gl.DEPTH_TEST);
+		gl.enable(gl.DEPTH_TEST);
 
 		// Polygon offset of rastered Fragments.
 		//gl.enable(gl.POLYGON_OFFSET_FILL);

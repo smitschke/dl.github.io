@@ -42,7 +42,7 @@ var shell = ( function() {
 				// Set vertex positions
 				vertices[iVertex * 3] = x +1 ;
 				vertices[iVertex * 3 + 1] = y;
-				vertices[iVertex * 3 + 2] = z ;
+				vertices[iVertex * 3 + 2] = -z ;
 				
 				// Calc and set normals.
 				var nx = Math.cos(u) * Math.cos(v);
