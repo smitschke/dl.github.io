@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		
+		<link href="jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="gvt.css" media="screen" />
+		<script src="jquery-3.6.1.min.js"></script>
+			<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+			<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+			<script src="js/gl-matrix.js" defer></script>
+			<script src="js/models/esa6_plane.js" defer></script>
+			<script src="js/models/esa6_torus.js" defer></script>
+			<script src="js/models/esa6_shpere.js" defer></script>
+			<script src="js/esa6.js" defer></script>
+			<script type="x-shader/x-vertex" id="vertexshader">
+				attribute vec3 aPosition;
+				attribute vec3 aNormal;
+	
+				uniform mat4 uPMatrix;
+				uniform mat4 uMVMatrix;
+	
+				varying vec4 vColor;
+	
+				void main(){
+					gl_Position = uPMatrix * uMVMatrix * vec4(aPosition, 1.0);
+		
+					vColor = vec4(aNormal.x, aNormal.y, aNormal.z, 1.0);
+					vColor = (vColor + 1.0) / 2.0;
+				}
+			</script>
+			<script type="x-shader/x-fragment" id="fragmentshader">
+				precision mediump float;
+				varying vec4 vColor;
+	
+				void main() {
+					gl_FragColor = vColor;
+				}
+			</script>
+	</head>
+
+	<body onload="app.start()">
+		<div id="header">Graphical Visualisation Technologies
+		</div>
+		<div id="nav">
+			<a href="index.html">ESA1</a> 
+			<a href="esa2.html">ESA2</a>
+			<a href="esa3.html">ESA3</a>
+			<a href="esa4.html">ESA4</a>
+			<a href="esa5.html">ESA5</a>
+			ESA6
+			<a href="esa7.html">ESA7</a>
+			<a href="esa8.html">ESA8</a>
+			<a href="esa9.html">ESA9</a>
+			<a href="esa10.html">ESA10</a>
+		</div>
+		<h2>ESA 6: Objekte bewegen - fliegende Kugeln</h2>	
+		
+		<div id="content" class="esa6">	
+			<div>
+				<canvas id="canvas" width="750" height="500"></canvas>
+				<p><strong>Steuerung:</strong></p>
+				<p>K: Kugeln / Torus schrittweise bewegen</p>
+				<p>L: Automatische animation ein- und ausschalten</p>			
+			</div>
+
+            <div id="sources" style="display: none;"><h3>Verwendete Bilder:</h3>
+                <div id="close">x</div>
+                <h3>Verwendete Bibliotheken:</h3>
+                <p>
+                  <a href="https://jquery.com/" target="_blank">https://jquery.com/</a><br>
+                  <a href="https://jqueryui.com/" target="_blank">https://jqueryui.com/</a>
+                </p>
+            </div>
+		</div>
+		<!--<div id="footer">
+			<div>Susanne Dittrich, TH Brandenburg</div>
+			<a id="source_link" href="#">Quellen</a>
+		</div>-->
+	</body>
+</html>
