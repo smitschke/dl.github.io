@@ -247,6 +247,7 @@ var app = ( function() {
 	function initEventHandler() {
 		// Rotation step.
 		var deltaRotate = Math.PI / 36;
+		var deltaTranslate = 0.05;
 
 		window.onkeydown = function(evt) {
 			//evt.preventDefault();
@@ -254,7 +255,18 @@ var app = ( function() {
 			var c = evt.key;
 
 			switch(c) {
-				
+				case ('w'):
+					camera.center[2] -= deltaTranslate;
+					break;
+				case ('s'):
+					camera.center[2] += deltaTranslate;
+					break;
+				case ('a'):
+					camera.center[0] -= deltaTranslate;
+					break;
+				case ('d'):
+					camera.center[0] += deltaTranslate;
+					break;				
 				case('ArrowRight'):
                     cameraRight();
 					break;
