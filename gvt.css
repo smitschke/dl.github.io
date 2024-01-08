@@ -121,7 +121,7 @@ img {
 }
 
 a {
-    color: #4EB1FC;
+    color: #41a6ad;
     text-decoration: none;
 }
 
@@ -280,4 +280,12 @@ input {
 
 .ui-widget.ui-widget-content {
     border: 1px solid #98ADD9 !important;
+}
+
+#toon {
+    display: none;
+}
+
+#esa9 > div {
+    width: 500px;
 }

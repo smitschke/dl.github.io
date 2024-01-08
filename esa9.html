@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		
+		<link href="jquery-ui-1.12.1.custom/jquery-ui.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="gvt.css" media="screen" />
+		<script src="jquery-3.6.1.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+		<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+		<script src="js/gl-matrix.js" defer></script>
+		<script src="js/models/esa9_torus.js" defer></script>
+
+		<script src="js/TXR_Src_earth_tpl.js" defer></script>
+		<script type="x-shader/x-vertex" id="vertexshader">
+			attribute vec3 aPosition;
+			attribute vec3 aNormal;
+			attribute vec2 aTextureCoord;
+
+			uniform mat4 uPMatrix;
+			uniform mat4 uMVMatrix;
+			uniform mat3 uNMatrix;
+			
+			varying vec3 vNormal;
+			varying vec4 vPosition;
+			varying vec2 vTextureCoord;
+
+			void main(){
+				// Calculte vertex position in eye coordinates. 
+				vec4 tPosition = uMVMatrix * vec4(aPosition, 1.0);
+				// Calculate projektion.
+				gl_Position = uPMatrix * tPosition;
+	
+				vec3 tNormal = normalize(uNMatrix * aNormal);
+				tNormal = uNMatrix * aNormal;
+				
+				vPosition = tPosition;
+				vNormal = tNormal;				
+				vTextureCoord = aTextureCoord;		
+			}
+		</script>
+		
+		<script type="x-shader/x-fragment" id="fragmentshader">
+			precision mediump float;
+			
+			uniform sampler2D uTexture;
+			
+			varying vec2 vTextureCoord;
+			varying vec3 vNormal;
+			varying vec4 vPosition;
+			
+			// Material.
+			struct PhongMaterial {
+				vec3 ka;
+				vec3 kd;
+				vec3 ks;
+				float ke; 
+			};
+			uniform PhongMaterial material;
+			
+			// Ambient light.
+			uniform vec3 ambientLight;
+			
+			// Pointlights.
+			const int MAX_LIGHT_SOURCES = 8;
+			struct LightSource {
+				bool isOn;
+				vec3 position;
+				vec3 color;
+			};
+			uniform LightSource light[MAX_LIGHT_SOURCES];
+			
+			// Phong illumination for single light source,
+			// no ambient light.
+			vec3 phong(vec3 p, vec3 n, vec3 v, LightSource l) {
+			
+				vec3 L = l.color;
+			
+				vec3 s = normalize(l.position - p);
+				vec3 r = reflect(-s, n);
+				
+				float sn = max( dot(s,n), 0.0);
+				float rv = max( dot(r,v), 0.0);
+							
+				vec3 diffuse = material.kd * L * sn;								
+				vec3 specular = material.ks * L * pow(rv, material.ke);
+			
+				return diffuse + specular;			
+			}
+			
+			// Phong illumination for multiple light sources
+			vec3 phong(vec3 p, vec3 n, vec3 v) {
+			
+				// Calculate ambient light.
+				vec3 result = material.ka * ambientLight;
+				
+				// Add light from all light sources.
+				for(int j=0; j < MAX_LIGHT_SOURCES; j++){
+					if(light[j].isOn){
+						result += phong(p, n, v, light[j]);
+					}
+				}
+				return result;
+			}
+			
+			void main() {
+				// Calculate view vector.
+    			// For ortho projection:
+    			vec3 v = vec3(0,0,-1);
+    
+				vec3 vNormal = normalize(vNormal);
+				
+				vec4 tColor = texture2D(uTexture, vTextureCoord);
+				vec4 lighting = vec4( phong(vPosition.xyz, vNormal, v), 1.0);
+				gl_FragColor = tColor * lighting;
+			}		
+		</script>
+	</head>
+
+	<body onload="app.start()">
+		<div id="header">Graphical Visualisation Technologies
+		</div>
+		<div id="nav">
+			<a href="index.html">ESA1</a> 
+			<a href="esa2.html">ESA2</a>
+			<a href="esa3.html">ESA3</a>
+			<a href="esa4.html">ESA4</a>
+			<a href="esa5.html">ESA5</a>
+			<a href="esa6.html">ESA6</a>
+			<a href="esa7.html">ESA7</a>
+			<a href="esa8.html">ESA8</a>
+			ESA9
+			<a href="esa10.html">ESA10</a>
+		</div>
+		<h2>ESA 9: Torustextur</h2>	
+		
+		<div id="content" class="esa">	
+			<div>
+				<canvas id="canvas" width="500" height="300"></canvas>
+				<div>
+					<p><strong>Steuerung:</strong></p>
+					<p>j: Texturart wechseln</p>
+					<p>c: Szene um y-Achse drehen</p>
+					<p>w, a, s, d: Kamera bewegen</p>	
+				</div>
+				
+			</div>
+			<div>
+				<p>Textur wurde mit Hilfe von <a href="https://lexica.art/aperture">https://lexica.art</a> erstellt.</p>
+				<p>Verwendeter Promt:<br />"Create a marble texture in turquoise and dark blue".</p>
+				<p>Grafik vor der Weiterverarbeitung:<br /><a href="img/marble_texture.jpg">marble_texture.jpg</a></p>
+				<p>Grafik nach der Weiterverarbeitung:<br /><a href="img/marble_texture.png">marble_texture.png</a></p>				
+			</div>
+			
+
+            <div id="sources" style="display: none;"><h3>Verwendete Bilder:</h3>
+                <div id="close">x</div>
+                <h3>Verwendete Bibliotheken:</h3>
+                <p>
+                  <a href="https://jquery.com/" target="_blank">https://jquery.com/</a><br>
+                  <a href="https://jqueryui.com/" target="_blank">https://jqueryui.com/</a>
+                </p>
+            </div>
+		</div>
+		<!--<div id="footer">
+			<div>Susanne Dittrich, TH Brandenburg</div>
+			<a id="source_link" href="#">Quellen</a>
+		</div>-->
+	</body>
+</html>
