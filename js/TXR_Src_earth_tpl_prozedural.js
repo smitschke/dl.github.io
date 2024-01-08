@@ -75,7 +75,7 @@ var app = ( function() {
 	 */
 	function initPipline() {
 		gl.clearColor(0.835, 0.894, 0.898, 1);
-		
+
 		// Backface culling.
 		gl.frontFace(gl.CCW);
 		gl.enable(gl.CULL_FACE);
@@ -427,7 +427,7 @@ var app = ( function() {
 
 	document.addEventListener('keydown', function (event) {
         if (event.code == 'KeyJ') {
-          window.location.href = "esa9_prozedural.html";
+          window.location.href = "esa9.html";
           }
       });
 
